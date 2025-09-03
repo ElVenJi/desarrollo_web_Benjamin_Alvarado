@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <title>Listado de Avisos</title>
+    <link rel="stylesheet" type="text/css"  href="../css/portada.css">
+  </head>
+  <body>
+    <h1>
+      Listado de Avisos de Adopciones
+    </h1>
+    <table id="tabla-general">
+      <tr id="datos">
+            <th>Fecha de Publicación</th>
+            <th>Fecha entrega</th>
+            <th>Comuna</th>
+            <th>Sector</th>
+            <th>Cantidad</th>
+            <th>Tipo</th>
+            <th>Edad</th>
+            <th>Descripción</th>
+            <th>Nombre</th>
+            <th>Contacto</th>
+            <th>Foto(s)</th>
+      </tr>
+      <tr id ="aviso1">
+            <td>09/01/2025</td>
+            <td>09/14/2025</td>
+            <td>Tocopilla</td>
+            <td>None</td>
+            <td>10</td>
+            <td>Perros</td>
+            <td>2 meses</td>
+            <td>Perritos naranjos bebés</td>
+            <td>Alexis Sánchez</td>
+            <td>alexis.sanchez@gmail.com</td>
+            <td>1</td>
+      </tr> 
+      <tr id ="aviso2">
+            <td>08/20/2025</td>
+            <td>08/23/2025</td>
+            <td>Lautaro</td>
+            <td>Arbolitos</td>
+            <td>5</td>
+            <td>Gatos</td>
+            <td>1 Meses</td>
+            <td>Gatitos bebés</td>
+            <td>La Pincoya</td>
+            <td>lapincoya@gmail.com</td>
+            <td>1</td>
+      </tr>
+      <tr id ="aviso3">
+            <td>08/05/2025</td>
+            <td>08/10/2025</td>
+            <td>Peñalolén</td>
+            <td>None</td>
+            <td>2</td>
+            <td>Gatos</td>
+            <td>10 años</td>
+            <td>Gatitos no bebés</td>
+            <td>Benjamín</td>
+            <td>benjamin@gmail.com</td>
+            <td>1</td>
+        </tr>
+        <tr id ="aviso4">
+            <td>04/16/2025</td>
+            <td>05/10/2025</td>
+            <td>Peñalolén</td>
+            <td>Cordillera</td>
+            <td>1</td>
+            <td>Gatos</td>
+            <td>3 años</td>
+            <td>Gatita muy lindo</td>
+            <td>Emilia</td>
+            <td>+56999119999</td>
+            <td>1</td>
+        </tr>
+        <tr id ="aviso5">
+            <td>12/31/1909</td>
+            <td>01/01/1910</td>
+            <td>Ranquil</td>
+            <td>None</td>
+            <td>1</td>
+            <td>Perros</td>
+            <td>5 años</td>
+            <td>None</td>
+            <td>Pedro</td>
+            <td>+56987654321</td>
+            <td>1</td>
+        </tr>
+    </table>
+        
+    
+    <table id = "tabla-detallada">
+        <tr id="datosD" style="display: none">
+            <th>Fecha de Publicación</th>
+            <th>Fecha entrega</th>
+            <th>Región</th>
+            <th>Comuna</th>
+            <th>Sector</th>
+            <th>Cantidad</th>
+            <th>Tipo</th>
+            <th>Edad</th>
+            <th>Descripción</th>
+            <th>Nombre</th>
+            <th>Correo</th>
+            <th>Telefono</th>
+            <th>Contacto</th>
+            <th>Foto(s)</th>
+        </tr>
+        
+        <tr id ="avisoD1" style="display: none">
+            <td>09/01/2025</td>
+            <td>09/14/2025</td>
+            <td>Región de Antofagasta</td>
+            <td>Tocopilla</td>
+            <td>None</td>
+            <td>10</td>
+            <td>Perros</td>
+            <td>2 Meses</td>
+            <td>Perritos naranjos bebés</td>
+            <td>Alexis Sánchez</td>
+            <td>alexis.sanchez@gmail.com</td>
+            <td>+56998671522</td>
+            <td>alexis.sanchez@gmail.com</td>
+            <td><img src="../dogs.jpg" class = "Fotos" alt="Foto 1" width="320" height="240" onclick=agrandarFoto(this)></td>
+        </tr>
+        <tr id ="avisoD2" style="display: none">
+            <td>08/20/2025</td>
+            <td>08/23/2025</td>
+            <td>Región de La Araucanía</td>
+            <td>Lautaro</td>
+            <td>Arbolitos</td>
+            <td>5</td>
+            <td>Gatos</td>
+            <td>1 Meses</td>
+            <td>Gatitos bebés</td>
+            <td>La Pincoya</td>
+            <td>lapincoya@gmail.com</td>
+            <td>+56912345678</td>
+            <td>lapincoya@gmail.com</td>
+            <td><img src="../5cats.jpg" class = "Fotos" alt="Foto 2" width="320" height="240" onclick=agrandarFoto(this)></td>
+        </tr>
+        <tr id ="avisoD3" style="display: none">
+            <td>08/05/2025</td>
+            <td>08/10/2025</td>
+            <td>Región Metropolitana de Santiago</td>
+            <td>Peñalolén</td>
+            <td>None</td>
+            <td>2</td>
+            <td>Gatos</td>
+            <td>10 años</td>
+            <td>Gatitos no bebés</td>
+            <td>Benjamín</td>
+            <td>benjamin@gmail.com</td>
+            <td>+56999999999</td>
+            <td>+56999999999</td>
+            <td><img src="../gatinhos.jpg" class = "Fotos" alt="Foto 3" width="320" height="240" onclick=agrandarFoto(this)></td>
+        </tr>
+        <tr id ="avisoD4" style="display: none">
+            <td>04/16/2025</td>
+            <td>05/10/2025</td>
+            <td>Región Metropolitana de Santiago</td>
+            <td>Peñalolén</td>
+            <td>Cordillera</td>
+            <td>1</td>
+            <td>Gatos</td>
+            <td>3 años</td>
+            <td>Gatita muy lindo</td>
+            <td>Emilia</td>
+            <td>emiliayeyo@gmail.com</td>
+            <td>+56999119999</td>
+            <td>+56999119999</td>
+            <td><img src="../rigby.jpg" class = "Fotos" alt="Foto 4" width="320" height="240" onclick=agrandarFoto(this)></td>
+        </tr>
+        <tr id ="avisoD5" style="display: none">
+            <td>12/31/1909</td>
+            <td>01/01/1910</td>
+            <td>Región del Ñuble</td>
+            <td>Ranquil</td>
+            <td>None</td>
+            <td>1</td>
+            <td>Perros</td>
+            <td>5 años</td>
+            <td>None</td>
+            <td>Pedro</td>
+            <td>josepedro@gmail.com</td>
+            <td>+56987654321</td>
+            <td>+56987654321</td>
+            <td><img src="../dog.jpg" class = "Fotos" alt="Foto 5" width="320" height="240" onclick=agrandarFoto(this)></td>
+        </tr>
+    </table>
+    <div id= "boton-volver" style="display:none">
+        <button type="button" onclick ="window.location.href='Listado.html'">Volver</button>
+    </div>
+    <div id= "boton-volver2">
+        <button type="button" onclick ="window.location.href='Portada.html'">Volver a la Portada</button>
+    </div>
+
+    <!-- Modal para mostrar imagen ampliada (Sacado de internet) -->
+    <div id="modal-foto" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background-color:rgba(0,0,0,0.8); justify-content:center; align-items:center; z-index:1000;">
+    <div style="position:relative;">
+        <img id="imagen-ampliada" src="" alt="Foto ampliada" width="800" height="600">
+        <button onclick="cerrarFoto()" style="position:absolute; top:10px; right:10px; padding:10px; background-color:#fff; border:none; cursor:pointer;">Cerrar</button>
+    </div>
+    </div>
+  <script src="../js/listado.js"></script>
+  </body>
+  
+</html>

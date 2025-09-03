@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <title>Aviso</title>
+    <link rel="stylesheet" type="text/css"  href="../css/aviso.css">
+  </head>
+  <body>
+    <h1>
+      Agregar Aviso
+    </h1>
+
+    <div id ="main-container">
+    <div class="main-container">
+        <div id="val-box" hidden>
+            <h2 id="val-msg"></h2>
+            <ul id="val-list"></ul>
+        </div>
+        <form id = "Lugar" name="Lugar" method="post" enctype="multipart/form-data">
+            <div id = "form-title"> Lugar </div>
+            <label id = "region">  Región  </label>
+            <select name="seleccionar-región" id="seleccionar-región" >
+                <option value="">Seleccione una Región</option>
+            </select>
+            <br>    
+            <label id = "comuna">  Comuna  </label>
+            <select name="seleccionar-comuna" id="seleccionar-comuna" >
+                <option value="">Seleccione una Comuna</option>
+            </select><br>
+            <label id = "sector"> Sector </label>
+            <textarea name = "sector" id = "sector2" maxlength="100" minlength="1" ></textarea><br>
+        </form>
+    </div> <br>
+    <div class = "main-container">
+        <form id = "Contacto" name="Contacto" method="post" enctype="multipart/form-data">
+            <div id = "form-title2"> Contacto </div>
+            <label id = "name"> Nombre </label>
+            <input type = "text" name = "Nombre" id = "nombre" maxlength="200" minlength="3" required><br>
+            
+            <label id = "emaill"> Email </label>
+            <input type = "email" name = "email" id = "email" maxlength="100" minlength="3" required><br>
+            
+            <label id = "telefonol"> Teléfono </label>
+            <input type = "tel" name = "telefono" id = "telefono" maxlength="12" minlength="3" ><br>
+            
+            <label id = "contactar">  Contactar por:  </label>
+            <select name="seleccionar-medio" id="seleccionar-medio" >
+                <option value="">Seleccione medio de Contacto</option>
+            </select><br>
+            <label id="contactoLabel" style="display:none;">Ingrese su contacto:</label>
+            <textarea id="contactoTextarea" style="display:none" minlength="4" maxlength="50" ></textarea>
+
+        </form>
+    </div> <br>
+    <div class = "main-container">
+        <form id = "Datos" name="Datos" method="post" enctype="multipart/form-data">
+            <div id = "form-title3"> Datos </div>
+            <label id = "tipo">  Tipo:  </label>
+            <select name="seleccionar-tipo" id="seleccionar-tipo" required>
+                    <option value="">Seleccione tipo</option>
+            </select><br>
+            
+            <label id = "cantidadl"> Cantidad </label>
+            <input type = "number" name = "cantidad" id = "cantidad"  min="1" required><br>
+            
+            <div id="edaddiv">
+            <label id="edadl"> Edad </label>
+            <input type="number" name="edad" id="edad" min="1" required>
+            </div>
+            <div id="edaddivinput">
+            <select name="seleccionar-unidad-tiempo" id="seleccionar-unidad-tiempo" required>
+                <option value="">Seleccione unidad de Tiempo</option>
+            </select>
+            </div>
+
+            <label id = "Fecha"> Fecha disponible para entrega</label>
+            <input type="datetime-local" id = "fecha-disponible" required>
+
+            <label id = "descripciónl"> Descripción </label>
+            <textarea name = "descripción" id = "descripción" rows = "10" cols = "50" maxlength="1000" minlength="3" ></textarea><br>
+
+            <label>Foto(s)</label>
+            <div id="fotosContainer">
+            <input type="file" class="fotoInput" accept="image/*">
+            <button type="button" id="addFotoBtn">Agregar otra foto</button>
+            </div>
+            <p id="fotoMsg" style="color:red; display:none"></p><br>
+            <button type="button" id="envio">Agregar aviso</button>
+            <br>
+            <div id= "boton-volver2">
+                <button type="button" onclick ="window.location.href='Portada.html'" >Volver a la Portada</button>
+            </div>
+        </form>
+    </div> 
+    </div>
+    <div id="confirm-box" style="display:none">
+        <p>Está segur@ que desea agregar este aviso de adopción?</p>
+        <button id="confirm-yes">Sí, estoy segur@</button>
+        <button id="confirm-no">No, no estoy segur@</button>
+    </div>
+    <div id="success-box" style="display:none">
+    <p>Hemos recibido la información de adopción, muchas gracias y suerte!</p>
+    <button type="button" onclick ="window.location.href='Portada.html'">Volver a pantalla inicial</button>
+    </div>
+    
+  <script src="../js/region_comuna.js"></script>
+  <script src="../js/validation.js"></script>
+  <script src ="../js/selectAviso.js"></script>
+  </body>
+  
+</html>
