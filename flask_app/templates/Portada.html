@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <title>Adpociones</title>
+    
+    <link rel="stylesheet" type="text/css"  href="{{ url_for('static', filename='css/portada.css') }}">
+  </head>
+  <body>
+    <h1>
+      Adopciones
+    </h1>
+    <div>
+      <p>Bienvenid@s al centro de adopciones! </p>
+      <p>Aquí podrás encontrar diversos gatitos y perritos para poder adoptar! Además de hacer avisos de adopciones. </p>
+      <p><button type="button" onclick="window.location.href='{{ url_for('aviso') }}'">Agregar aviso de adopción</button> - 
+        <button type="button" onclick="window.location.href='{{url_for('listado')}}'">Ver listado de Adopciones</button>- 
+        <button type="button" onclick="window.location.href='{{url_for('estadisticas')}}'">Ver Estadisticas</button>
+      </p>
+      <hr>
+    </div>
+    <table id="tabla-general">
+      <tr id="datos">
+            <th>Fecha de Publicación</th>
+            <th>Comuna</th>
+            <th>Sector</th>
+            <th>Cantidad</th>
+            <th>Tipo</th>
+            <th>Edad</th>
+            <th>Foto(s)</th>
+      </tr>
+        {% for aviso in avisos %}
+        <tr>
+          <td>{{ aviso.fecha_entrega.strftime('%d-%m-%Y') }}</td>
+          <td>{{ aviso.comuna.nombre }}</td>
+          <td>{{ aviso.sector }}</td>
+          <td>{{ aviso.cantidad }}</td>
+          <td>{{ aviso.tipo }}</td>
+          <td>{{ aviso.edad }} {{aviso.unidad_medida}}</td>
+          <td>{% for foto in aviso.fotos %}
+            <img src="{{ url_for('static', filename='uploads/' ~ foto.nombre_archivo) }}" alt="{{ foto.nombre_archivo }}" width="100">
+            {% endfor %}
+          </td>
+
+        </tr>
+        {% endfor %}
+    </table>
+
+    
+  </body>
+</html>

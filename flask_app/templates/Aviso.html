@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8">
+    <title>Aviso</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/aviso.css') }}">
+  </head>
+  <body>
+    <h1>Agregar Aviso</h1>
+
+    <div id="main-container">
+      <form id="AvisoForm" method="post" enctype="multipart/form-data">
+        <!-- Lugar -->
+        <div class="main-container">
+          <div id="form-title">Lugar</div>
+          <label>Región</label>
+          <select name="seleccionar-región" id="seleccionar-región">
+            <option value="">Seleccione una Región</option>
+          </select><br>
+          <label>Comuna</label>
+          <select name="seleccionar-comuna" id="seleccionar-comuna">
+            <option value="">Seleccione una Comuna</option>
+          </select><br>
+          <label>Sector</label>
+          <textarea name="sector" id="sector" maxlength="100" minlength="1"></textarea><br>
+        </div>
+
+        <!-- Contacto -->
+        <div class="main-container">
+          <div id="form-title2">Contacto</div>
+          <label>Nombre</label>
+          <input type="text" name="Nombre" id="nombre" maxlength="200" minlength="3" required><br>
+
+          <label>Email</label>
+          <input type="email" name="email" id="email" maxlength="100" minlength="3" required><br>
+
+          <label>Teléfono</label>
+          <input type="tel" name="telefono" id="telefono" maxlength="12" minlength="3"><br>
+
+          <label>Contactar por:</label>
+          <select name="seleccionar-medio" id="seleccionar-medio">
+            <option value="">Seleccione medio de Contacto</option>
+          </select><br>
+
+          <label id="contactoLabel" style="display:none;">Ingrese su contacto:</label>
+          <textarea name="contacto-final" id="contactoTextarea" style="display:none" minlength="4" maxlength="50"></textarea>
+        </div>
+
+        <!-- Datos -->
+        <div class="main-container">
+          <div id="form-title3">Datos</div>
+          <label>Tipo</label>
+          <select name="seleccionar-tipo" id="seleccionar-tipo" required>
+            <option value="">Seleccione tipo</option>
+          </select><br>
+
+          <label>Cantidad</label>
+          <input type="number" name="cantidad" id="cantidad" min="1" required><br>
+
+          <label>Edad</label>
+          <input type="number" name="edad" id="edad" min="1" required>
+          <select name="seleccionar-unidad-tiempo" id="seleccionar-unidad-tiempo" required>
+            <option value="">Seleccione unidad de Tiempo</option>
+          </select><br>
+
+          <label>Fecha disponible para entrega</label>
+          <input type="datetime-local" name="fecha-disponible" id="fecha-disponible" required><br>
+
+          <label>Descripción</label>
+          <textarea name="descripción" id="descripción" rows="10" cols="50" maxlength="1000" minlength="3"></textarea><br>
+
+          <label>Foto(s)</label>
+          <div id="fotosContainer">
+            <input type="file" name="fotos[]" class="fotoInput" accept="image/*">
+            <button type="button" id="addFotoBtn">Agregar otra foto</button>
+          </div>
+        </div>
+
+        <!-- Botones -->
+        <button type="submit" id="envio">Agregar aviso</button>
+        <button type="button" onclick="window.location.href='{{ url_for('index') }}'">Volver a la Portada</button>
+      </form>
+    </div>
+
+    <!-- Confirmación -->
+    <div id="confirm-box" style="display:none">
+      <p>¿Está segur@ que desea agregar este aviso de adopción?</p>
+      <button id="confirm-yes">Sí, estoy segur@</button>
+      <button id="confirm-no">No, no estoy segur@</button>
+    </div>
+
+    <!-- Éxito -->
+    <div id="success-box" style="display:none">
+      <p>Hemos recibido la información de adopción, muchas gracias y suerte!</p>
+      <button type="button" onclick="window.location.href='{{ url_for('index') }}'">Volver a pantalla inicial</button>
+    </div>
+
+    <script lang="javascript" src="{{ url_for('static', filename='js/region_comuna.js') }}"></script>
+    <script lang="javascript" src="{{ url_for('static', filename='js/validation.js') }}"></script>
+    <script lang="javascript" src="{{ url_for('static', filename='js/selectAviso.js') }}"></script>
+
+   
+   
+    
+  </body>
+</html>
