@@ -30,7 +30,6 @@ const poblarComunas = () => {
 };
 
 
-
 const contactosData = {
   "medio" : ["Correo", "WhatsApp", "Telegram","X","Instagram","TikTok", "otra"]
 }
@@ -85,7 +84,8 @@ const poblarTiempo = () => {
 const poblarFecha = () => {
   let fechaInput = document.getElementById("fecha-disponible");
   let fechaActual = new Date();
-  fechaActual.setHours(fechaActual.getHours() -1);// Al parecer así es un +3
+  fechaActual.setHours(fechaActual.getHours());
+  fechaActual.setMinutes(fechaActual.getMinutes() + 5)
   fechaInput.value = fechaActual.toISOString().slice(0, 16);
   
 };
@@ -105,19 +105,24 @@ const createContacto = () => {
   };
 };
 
-
 const addFotos = () => {
   let fotosContainer = document.getElementById("fotosContainer");
   let addFotoBtn = document.getElementById("addFotoBtn");
+  
+
   let fotosInput = fotosContainer.querySelectorAll(".fotoInput");
+  
   if (fotosInput.length < 5) {
     let newInput = document.createElement("input");
     newInput.type = "file";
+    newInput.name = "fotos[]"; 
     newInput.classList.add("fotoInput");
     newInput.accept = "image/*";
+    
     fotosContainer.insertBefore(newInput, addFotoBtn);
-    if (fotosInput.length == 4){
-     addFotoBtn.style = "display:none"
+    
+    if (fotosInput.length + 1 >= 5){
+      addFotoBtn.style.display = "none";
     };
   };
 };
@@ -125,49 +130,6 @@ const addFotos = () => {
 document.getElementById("addFotoBtn").addEventListener("click", addFotos);
 document.getElementById("seleccionar-medio").addEventListener("change", createContacto);
 document.getElementById("seleccionar-región").addEventListener("change", poblarComunas);
-
-
-const form = document.getElementById("AvisoForm");
-const confirmBox = document.getElementById("confirm-box");
-const successBox = document.getElementById("success-box");
-
-form.addEventListener("submit", function(e){
-    e.preventDefault(); // evitar envío inmediato
-    confirmBox.style.display = "block";
-
-    document.getElementById("confirm-yes").onclick = () => {
-        confirmBox.style.display = "none";
-
-        const formData = new FormData(form);
-        fetch("{{ url_for('aviso') }}", {
-            method: "POST",
-            body: formData
-        })
-        .then(response => {
-            if(response.redirected){
-                window.location.href = response.url;
-            } else {
-                successBox.style.display = "block";
-            }
-        })
-        .catch(err => console.error(err));
-    };
-
-    document.getElementById("confirm-no").onclick = () => {
-        confirmBox.style.display = "none";
-    };
-});
-
-// Permitir agregar más fotos dinámicamente
-document.getElementById("addFotoBtn").addEventListener("click", () => {
-    const newInput = document.createElement("input");
-    newInput.type = "file";
-    newInput.name = "fotos[]";
-    newInput.accept = "image/*";
-    newInput.className = "fotoInput";
-    document.getElementById("fotosContainer").appendChild(newInput);
-});
-
 
 window.onload = () => {
   poblarRegiones();

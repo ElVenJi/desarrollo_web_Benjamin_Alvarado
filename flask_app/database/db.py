@@ -52,6 +52,7 @@ class AvisoAdopcion(Base):
     fotos = relationship("Foto", back_populates="aviso", cascade="all, delete-orphan")
     comuna = relationship("Comuna", back_populates="avisos")
     contactar_por = relationship("ContactarPor", back_populates="aviso", cascade="all, delete-orphan")
+    comentario = relationship("Comentario", back_populates="aviso", cascade="all, delete-orphan")
 
 class Foto(Base):
     __tablename__ = "foto"
@@ -72,6 +73,17 @@ class ContactarPor(Base):
     actividad_id = Column(BigInteger, ForeignKey('aviso_adopcion.id'))
 
     aviso = relationship("AvisoAdopcion", back_populates="contactar_por")
+
+class Comentario(Base):
+    __tablename__ = "comentario"
+    id = Column(Integer, primary_key = True, autoincrement= True)
+    nombre = Column(String(80), nullable=False)
+    texto = Column(String(300), nullable= False)
+    fecha = Column(DateTime, nullable=False, default = datetime.now)
+    aviso_id = Column(BigInteger, ForeignKey('aviso_adopcion.id'))
+
+    aviso = relationship("AvisoAdopcion", back_populates="comentario")
+
 
 def crear_tablas():
     Base.metadata.create_all(engine)

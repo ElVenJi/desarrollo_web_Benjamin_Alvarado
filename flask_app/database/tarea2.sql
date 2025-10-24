@@ -1,4 +1,4 @@
--- Active: 1759356036295@@127.0.0.1@3306@mysql
+-- Active: 1759947368458@@localhost@3306@tarea22
 -- MySQL Workbench Forward Engineering
 
 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
@@ -104,6 +104,23 @@ CREATE TABLE IF NOT EXISTS `tarea2`.`contactar_por` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
+-- -----------------------------------------------------
+-- Table `tarea2`.`comentario`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `tarea2`.`comentario` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `nombre` VARCHAR(80) NOT NULL,
+  `texto` VARCHAR(300) NOT NULL,
+  `fecha` TIMESTAMP NOT NULL,
+  `aviso_id` BIGINT NOT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `fk_comentario_aviso1_idx` (`aviso_id` ASC),
+  CONSTRAINT `fk_comentario_aviso1`
+    FOREIGN KEY (`aviso_id`)
+    REFERENCES `tarea2`.`aviso_adopcion` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;

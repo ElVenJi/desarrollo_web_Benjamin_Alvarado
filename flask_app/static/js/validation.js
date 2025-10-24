@@ -1,28 +1,26 @@
-  // validacion formulario
-  const validarForm = () => {
-    // funciones auxiliares
-    const validadorMail = (mail) => mail && mail.includes("@");
-    const validadorNombre = (nombre) => nombre && nombre.length > 3 && nombre.length < 200;
-    const tieneNumeros = (str) => /\d/.test(str);
-    const validadorSector = (sector) => !sector || (sector.length >= 1 && sector.length <= 100); //No sé si es necesario la verdad
+const validarForm = () => {
+    const validadorMail = (mail) => mail && mail.includes("@") && mail.length <= 100;
+    const validadorNombre = (nombre) => nombre && nombre.length >= 3 && nombre.length <= 200;
+    const validadorSector = (sector) => !sector || (sector.length >= 1 && sector.length <= 100);
     const validadorTelefono = (telefono) => {
-    if (!telefono) return false;
-    let lengthValid = telefono.length >= 8;
-
-    let re =  /^\+?[0-9]+$/;
-    let formatValid = re.test(telefono);
-
-    return lengthValid && formatValid;
-      };
-    const validadorFotos = (files) => files.length > 0 && files.length <= 5;
+      if (!telefono) return true;
+      let re =  /^\+\d{11}$/;
+      return re.test(telefono);
+    };
+    const validadorContactoFinal = (identificador, medio) => {
+        if (!medio || medio === "") return true; 
+        return identificador && identificador.length >= 4 && identificador.length <= 50;
+    };
+    const validadorFotos = (files) => files.length >= 1 && files.length <= 5;
     const validadorFecha = (fecha) => {
-        let fechaActual = new Date();
+        if (!fecha) return false;
         let fechaIn = new Date(fecha);
-        fechaActual.setHours(fechaActual.getHours() -1);
-        return fechaIn > fechaActual;
+        let fechaActual = new Date();
+        let fechaMinima = new Date(fechaActual.getTime() + (3 * 60 * 6 * 1000));
+        return fechaIn >= fechaMinima;
     };
 
-    //Inputs
+
     let emailInput = document.getElementById("email");
     let nameInput = document.getElementById("nombre");
     let sectorInput = document.getElementById("sector");
@@ -35,123 +33,57 @@
     let unidadTiempoSelect = document.getElementById("seleccionar-unidad-tiempo");
     let fechaInput = document.getElementById("fecha-disponible");
     let fotosInputs = document.querySelectorAll(".fotoInput");
+    let contactoFinalInput = document.getElementById("contactoTextarea");
+    let medioSelect = document.getElementById("seleccionar-medio");
     
-
-
     let allFiles = [];
     fotosInputs.forEach(input => {
-      for (let f of input.files) allFiles.push(f);
+      for (let f of input.files) {
+        if (f.name) allFiles.push(f);
+      }
     });
 
     let isValid = true;
-    let msg = "";
+    let msg = "Errores encontrados:\n";
 
-    if (!validadorMail(emailInput.value)) {
-      msg += "Mail inválido!\n";
-      emailInput.style.borderColor = "red"; // cambiar estilo con JS!!
-      isValid = false;
-    } else {
-      emailInput.style.borderColor = "";
-    }
-
-    if (!validadorNombre(nameInput.value)) { 
-      msg += "Nombre inválido!\n";
-      nameInput.style.borderColor = "red";
-      isValid = false;
-    } else {
-      nameInput.style.borderColor = "";
-    }
-
-    if (!validadorSector(sectorInput.value)) {
-      msg += "Sector inválido!\n";
-      sectorInput.style.borderColor = "red";
-      isValid = false;
-    } else {
-      sectorInput.style.borderColor = "";
-    }
+    if (!regionSelect.value) { msg += "- Debe seleccionar una región.\n"; isValid = false; }
+    if (!comunaSelect.value) { msg += "- Debe seleccionar una comuna.\n"; isValid = false; }
+    if (!validadorSector(sectorInput.value)) { msg += "- Sector inválido (máx. 100 caracteres).\n"; isValid = false; }
     
-    if (!validadorTelefono(telefonoInput.value)) {
-      msg += "Teléfono inválido!\n";
-      telefonoInput.style.borderColor = "red";
-      isValid = false;
-    } else {
-      telefonoInput.style.borderColor = "";
-    }
-    
-    if (!regionSelect.value) {
-      msg += "Debe seleccionar una región\n";
-      regionSelect.style.borderColor = "red";
-      isValid = false;
-    } else regionSelect.style.borderColor = "";
-    
-    if (!comunaSelect.value) {
-      msg += "Debe seleccionar una comuna\n";
-      comunaSelect.style.borderColor = "red";
-      isValid = false;
-    } else comunaSelect.style.borderColor = "";
-    
-    if (!tipoSelect.value) {
-      msg += "Debe seleccionar un tipo\n";
-      tipoSelect.style.borderColor = "red";
-      isValid = false;
-    } else tipoSelect.style.borderColor = "";
+    if (!validadorNombre(nameInput.value)) { msg += "- Nombre inválido (mín. 3, máx. 200 caracteres).\n"; isValid = false; }
+    if (!validadorMail(emailInput.value)) { msg += "- Email inválido (debe incluir @ y .).\n"; isValid = false; }
+    if (!validadorTelefono(telefonoInput.value)) { msg += "- Formato de Teléfono móvil inválido (ej: +56999999999).\n"; isValid = false; }
+    if (!validadorContactoFinal(contactoFinalInput.value, medioSelect.value)) { msg += "- Identificador de contacto obligatorio (4-50 caracteres) si se selecciona un medio.\n"; isValid = false; }
 
-    if (!cantidadInput.value || cantidadInput.value < 1) {
-      msg += "Cantidad inválida\n";
-      cantidadInput.style.borderColor = "red";
-      isValid = false;
-    } else cantidadInput.style.borderColor = "";
 
-    if (!edadInput.value || edadInput.value < 1) {
-      msg += "Edad inválida\n";
-      edadInput.style.borderColor = "red";
-      isValid = false;
-    } else edadInput.style.borderColor = "";
+    if (!tipoSelect.value) { msg += "- Debe seleccionar un tipo de mascota.\n"; isValid = false; }
+    if (!cantidadInput.value || parseInt(cantidadInput.value) < 1) { msg += "- Cantidad inválida (mín. 1).\n"; isValid = false; }
+    if (!edadInput.value || parseInt(edadInput.value) < 1) { msg += "- Edad inválida (mín. 1).\n"; isValid = false; }
+    if (!unidadTiempoSelect.value) { msg += "- Debe seleccionar una unidad de tiempo.\n"; isValid = false; }
+    if (!fechaInput.value) { msg += "- Debe ingresar fecha disponible.\n"; isValid = false; }
+    if (!validadorFecha(fechaInput.value)) { msg += "- Fecha inválida (debe ser mayor o igual a la fecha/hora actual + 3 horas).\n"; isValid = false; }
+    if (!validadorFotos(allFiles)) { msg += "- Debe subir entre 1 y 5 fotos.\n"; isValid = false; }
 
-    if (!unidadTiempoSelect.value) {
-      msg += "Debe seleccionar una unidad de tiempo\n";
-      unidadTiempoSelect.style.borderColor = "red";
-      isValid = false;
-    } else unidadTiempoSelect.style.borderColor = "";
-
-    if (!fechaInput.value) {
-      msg += "Debe ingresar fecha disponible\n";
-      fechaInput.style.borderColor = "red";
-      isValid = false;
-    } else fechaInput.style.borderColor = "";
-
-    if (!validadorFecha(fechaInput.value)) {
-      msg += "Fecha inválida!\n";
-      fechaInput.style.borderColor = "red";
-      isValid = false;
-    } else {
-      fechaInput.style.borderColor = "";
-    };
-
-    if (!validadorFotos(allFiles)) {
-      msg += "Debe subir entre 1 y 5 fotos\n";
-      isValid = false;
-    };
 
     if (isValid) {
       let confirmBox = document.getElementById("confirm-box");
-      let successBox = document.getElementById("success-box");
-      msg = "Felicidades tu aviso se subió correctamente";
-      isValid = true;
-      document.getElementById("main-container").style.display = "none";
+      document.getElementById("main-container").style.display = "block";
       confirmBox.style.display = "block";
+      
       document.getElementById("confirm-yes").onclick = () => {
           confirmBox.style.display = "none";
-          successBox.style.display = "block";
+          document.getElementById("AvisoForm").submit(); 
       };
+      
       document.getElementById("confirm-no").onclick = () => {
         confirmBox.style.display = "none";
         document.getElementById("main-container").style.display = "block";
       };
       return;
     };  
-    alert(msg); // alertas JS
+    
+    alert(msg);
   };
-  // recuperamos el boton que envia el form
-  let submitBtn = document.getElementById("envio");
+  
+  let submitBtn = document.getElementById("boton-confirmar-js");
   submitBtn.addEventListener("click", validarForm);

@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="es">
   <head>
+    <meta charset="UTF-8">
     <title>Listado de Avisos</title>
     <link rel="stylesheet" type="text/css"  href="{{ url_for('static', filename='css/portada.css') }}">
   </head>
@@ -33,7 +34,9 @@
           <td>{{ aviso.edad }} {{aviso.unidad_medida}}</td>
           <td>{{ aviso.descripcion}}</td>
           <td>{{ aviso.nombre}}</td>
-          <td>{{ aviso.contacto }}</td>
+          <td>{% for contacto in aviso.contactar_por %}
+              {{ contacto.nombre }} ({{ contacto.identificador }})<br>
+            {% endfor %}</td>
           <td>{% for foto in aviso.fotos %}
             <img src="{{ url_for('static', filename='uploads/' ~ foto.nombre_archivo) }}" alt="{{ foto.nombre_archivo }}" width="100">
             {% endfor %}
@@ -59,15 +62,7 @@
     <div id= "boton-volver2">
         <button type="button" onclick="window.location.href='{{url_for('index')}}'">Volver a la Portada</button>
     </div>
-
-    <!-- Modal para mostrar imagen ampliada (Sacado de internet) -->
-    <div id="modal-foto" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background-color:rgba(0,0,0,0.8); justify-content:center; align-items:center; z-index:1000;">
-    <div style="position:relative;">
-        <img id="imagen-ampliada" src="" alt="Foto ampliada" width="800" height="600">
-        <button onclick="cerrarFoto()" style="position:absolute; top:10px; right:10px; padding:10px; background-color:#fff; border:none; cursor:pointer;">Cerrar</button>
-    </div>
-    </div>
-
+    
   <script lang="javascript" src="{{ url_for('static', filename='js/listado.js') }}"></script>
   </body>
   

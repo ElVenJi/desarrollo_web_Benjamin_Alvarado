@@ -1,15 +1,24 @@
 <!DOCTYPE html>
 <html lang="es">
-  <head>
+  <head>  
+    <meta charset="UTF-8">
     <title>Adpociones</title>
-    
     <link rel="stylesheet" type="text/css"  href="{{ url_for('static', filename='css/portada.css') }}">
   </head>
   <body>
     <h1>
       Adopciones
     </h1>
-    <div>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <ul class="flashes">
+          {% for category, message in messages %}
+            <li class="{{ category }}">{{ message }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    {% endwith %}
+    
       <p>Bienvenid@s al centro de adopciones! </p>
       <p>Aquí podrás encontrar diversos gatitos y perritos para poder adoptar! Además de hacer avisos de adopciones. </p>
       <p><button type="button" onclick="window.location.href='{{ url_for('aviso') }}'">Agregar aviso de adopción</button> - 
@@ -17,7 +26,6 @@
         <button type="button" onclick="window.location.href='{{url_for('estadisticas')}}'">Ver Estadisticas</button>
       </p>
       <hr>
-    </div>
     <table id="tabla-general">
       <tr id="datos">
             <th>Fecha de Publicación</th>
