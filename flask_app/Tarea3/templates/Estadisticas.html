@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estadísticas</title>
+    <link rel="stylesheet" type="text/css"  href="{{ url_for('static', filename='css/portada.css') }}">
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+  </head>
+
+  <body>
+    <h1>
+      Estadísticas
+    </h1>
+    <div id="container" style="width:100%; height:400px;"></div>
+    <hr> <div id="container-torta" style="width:100%; height:400px;"></div>
+    <hr> <div id="container-barra" style="width:100%; height:400px;"></div>
+
+    <button type="button" onclick="window.location.href='{{url_for('index')}}'">Volver a la Portada</button>
+      <script src="{{ url_for('static', filename='js/estadisticas.js') }}"></script>
+  </body>
+</html>
