@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8">
+    <title>Listado de Avisos</title>
+    <link rel="stylesheet" type="text/css"  href="{{ url_for('static', filename='css/portada.css') }}">
+  </head>
+  <body>
+    <h1>
+      Listado de Avisos de Adopciones
+    </h1>
+    <table id="tabla-general">
+      <tr id="datos">
+            <th>Fecha de Publicación</th>
+            <th>Fecha entrega</th>
+            <th>Comuna</th>
+            <th>Sector</th>
+            <th>Cantidad</th>
+            <th>Tipo</th>
+            <th>Edad</th>
+            <th>Descripción</th>
+            <th>Nombre</th>
+            <th>Contacto</th>
+            <th>Foto(s)</th>
+      </tr>
+        {% for aviso in avisos %}
+        <tr onclick="window.location.href='{{ url_for('detalle_aviso', aviso_id=aviso.id) }}'">
+          <td>{{ aviso.fecha_ingreso.strftime('%d-%m-%Y')}}</td>
+          <td>{{ aviso.fecha_entrega.strftime('%d-%m-%Y') }}</td>
+          <td>{{ aviso.comuna.nombre }}</td>
+          <td>{{ aviso.sector }}</td>
+          <td>{{ aviso.cantidad }}</td>
+          <td>{{ aviso.tipo }}</td>
+          <td>{{ aviso.edad }} {{aviso.unidad_medida}}</td>
+          <td>{{ aviso.descripcion}}</td>
+          <td>{{ aviso.nombre}}</td>
+          <td>{% for contacto in aviso.contactar_por %}
+              {{ contacto.nombre }} ({{ contacto.identificador }})<br>
+            {% endfor %}</td>
+          <td>{% for foto in aviso.fotos %}
+            <img src="{{ url_for('static', filename='uploads/' ~ foto.nombre_archivo) }}" alt="{{ foto.nombre_archivo }}" width="100">
+            {% endfor %}
+          </td>
+        </tr>
+        {% endfor %}
+    </table>
+    <div class="paginacion">
+        {% if page > 1 %}
+            <a href="{{ url_for('listado', page=page-1) }}">← Anterior</a>
+        {% endif %}
+
+    <span>Página {{ page }} de {{ total_pages }}</span>
+
+        {% if page < total_pages %}
+            <a href="{{ url_for('listado', page=page+1) }}">Siguiente →</a>
+        {% endif %}
+    </div>
+    
+    <div id= "boton-volver" style="display:none">
+        <button type="button" onclick="window.location.href='{{url_for('listado')}}'">Volver</button>
+    </div>
+    <div id= "boton-volver2">
+        <button type="button" onclick="window.location.href='{{url_for('index')}}'">Volver a la Portada</button>
+    </div>
+    
+  <script lang="javascript" src="{{ url_for('static', filename='js/listado.js') }}"></script>
+  </body>
+  
+</html>
