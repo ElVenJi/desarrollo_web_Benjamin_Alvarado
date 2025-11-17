@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Adopciones</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/listado.css}">
+    <meta charset="UTF-8"> <title>Adopciones</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/listado.css}">
+</head>
+<body>
+    <h1>Adopciones</h1>
+    <div>
+        <p>Bienvenid@s al centro de adopciones! </p>
+        <p>Aquí podrás encontrar diversos gatitos y perritos para poder adoptar! Además de hacer avisos de adopciones. </p>
+        <hr>
+    </div>
+    
+    <table id="tabla-general">
+        <thead>
+            <tr id="datos">
+                <th>Id</th>
+                <th>Fecha de Publicación</th>
+                <th>Sector</th>
+                <th>Cantidad, Tipo y Edad</th>
+                <th>Comuna</th>
+                <th>Nota</th>
+                <th>Acción</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="av : ${data}">
+                <td th:text="${av.id}">1</td>
+                <td th:text="${#temporals.format(av.fecha_publicacion, 'yyyy-MM-dd HH:mm')}">2025-06-02 12:00</td>
+                <td th:text="${av.getSector()}">Beauchef 859</td>
+                <td th:text="${av.getCantidadTipoEdad()}">1 gato 2 meses</td>
+                <td th:text="${av.getNombreComuna()}">Santiago</td>
+                
+                <td th:id="'nota-' + ${av.id}" th:text="${av.getPromedioNotas()}">-</td>
+                
+                <td th:id="'accion-' + ${av.id}">
+                    <button type="button" th:onclick="|mostrarFormulario(${av.id})|">
+                        evaluar
+                    </button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <script th:src="@{/js/listado.js}"></script>
+</body>
+</html>
