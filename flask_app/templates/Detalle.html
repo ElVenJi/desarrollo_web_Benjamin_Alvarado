@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Detalle de Aviso #{{ aviso.id }}</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/detalle.css') }}">
+    <style>
+        #modal-foto {
+            display: none; 
+            position: fixed; 
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100%; 
+            background-color: rgba(0,0,0,0.8); 
+            justify-content: center; 
+            align-items: center; 
+            z-index: 1000;
+        }
+        #imagen-ampliada {
+            max-width: 800px;
+            max-height: 600px;
+            width: auto;
+            height: auto;
+            border: 2px solid white;
+        }
+        .close-btn {
+            position: absolute; 
+            top: 10px; 
+            right: 10px; 
+            padding: 10px 15px; 
+            background-color: #fff; 
+            border: none; 
+            cursor: pointer;
+            font-size: 1.2em;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Detalle del Aviso de Adopción #{{ aviso.id }}</h1>
+
+    <div class="detalle-container">
+        <h2>Información de la Mascota</h2>
+        <p><strong>Tipo de Mascota:</strong> {{ aviso.tipo | capitalize }}</p>
+        <p><strong>Cantidad:</strong> {{ aviso.cantidad }}</p>
+        <p><strong>Edad:</strong> {{ aviso.edad }} {{ aviso.unidad_medida }}</p>
+        <p><strong>Descripción:</strong> {{ aviso.descripcion or 'Sin descripción.' }}</p>
+        <p><strong>Fecha Disponible para Entrega:</strong> {{ aviso.fecha_entrega.strftime('%d-%m-%Y %H:%M') }}</p>
+        
+        <h2>Ubicación</h2>
+        <p><strong>Región:</strong> {{ aviso.comuna.region.nombre }}</p>
+        <p><strong>Comuna:</strong> {{ aviso.comuna.nombre }}</p>
+        <p><strong>Sector:</strong> {{ aviso.sector or 'Sin sector.' }}</p>
+        
+        <h2>Contacto</h2>
+        <p><strong>Nombre del Contacto:</strong> {{ aviso.nombre }}</p>
+        <p><strong>Email:</strong> {{ aviso.email }}</p>
+        <p><strong>Celular:</strong> {{ aviso.celular or 'Sin celular.' }}</p>
+        
+        {% if aviso.contactar_por %}
+            <h3>Contactar por:</h3>
+            <ul>
+                {% for contacto in aviso.contactar_por %}
+                    <li><strong>{{ contacto.nombre }}:</strong> {{ contacto.identificador }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+        
+        <h2>Fotos</h2>
+        <div class="galeria-fotos">
+            {% for foto in aviso.fotos %}
+                <img 
+                    src="{{ url_for('static', filename='uploads/' ~ foto.nombre_archivo) }}" 
+                    alt="Foto {{ loop.index }}" 
+                    width="320" 
+                    height="240"
+                    onclick="agrandarFoto(this.src)"
+                    style="cursor: pointer; margin-right: 10px; border: 1px solid #ccc;">
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class = "comentario-container" id = "comentarios">
+        <p>Comentarios...</p>
+    </div>
+    <hr>
+    <h3>Agregar un Comentario</h3>
+    <form id="form-comentario">
+        <div>
+            <label for="comentario-nombre">Nombre:</label>
+            <input type="text" id="comentario-nombre" name="nombre" required minlength="3" maxlength="80">
+        </div>
+        <div>
+            <label for="comentario-texto">Comentario:</label>
+            <textarea id="comentario-texto" name="texto" rows="4" cols="50" required minlength="5"></textarea>
+        </div>
+        <button type="submit" id ="agregar-comentario-btn">Agregar comentario</button>
+    </form>
+    <hr>
+
+    <div class="botones-navegacion">
+        <button type="button" onclick="window.location.href='{{ url_for('listado') }}'">Volver al Listado de Avisos</button>
+        <button type="button" onclick="window.location.href='{{ url_for('index') }}'">Volver a la Portada</button>
+    </div>
+
+    <div id="modal-foto">
+        <div style="position:relative;">
+            <img id="imagen-ampliada" src="#" alt="Foto ampliada" width="800" height="600">
+            <button onclick="cerrarFoto()" class="close-btn">Cerrar</button>
+        </div>
+    </div>
+
+    <script>
+        const AVISO_ID = {{ aviso.id }};
+    </script>
+    <script src="{{ url_for('static', filename='js/listado.js') }}"></script>
+
+</body>
+</html>
